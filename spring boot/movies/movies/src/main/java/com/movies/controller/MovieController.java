@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/movie")
+@CrossOrigin("*")
 public class MovieController {
 
     @Autowired
@@ -19,7 +20,7 @@ public class MovieController {
 
     @GetMapping("/getall")
     private ResponseEntity<List<Movies>> getMovies(){
-        return ResponseEntity.status(HttpStatus.FOUND).body(this.movieService.getAllMovies());
+        return ResponseEntity.status(HttpStatus.OK).body(this.movieService.getAllMovies());
     }
 
     @GetMapping("/getbyid")

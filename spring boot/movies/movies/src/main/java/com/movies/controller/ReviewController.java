@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/review")
+@CrossOrigin("*")
 public class ReviewController {
 
     @Autowired
