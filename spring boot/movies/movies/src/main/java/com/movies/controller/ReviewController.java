@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/review")
@@ -23,7 +24,7 @@ public class ReviewController {
     }
 
     @PostMapping("/addreview")
-    private ResponseEntity<Review> addReview(@RequestBody Review review,@RequestParam String id){
-        return ResponseEntity.status(HttpStatus.OK).body(this.reviewService.addReview(review,id));
+    private ResponseEntity<Review> addReview(@RequestBody Map<String,String> payload){
+        return ResponseEntity.status(HttpStatus.OK).body(this.reviewService.addReview(payload.get("review"),payload.get("imdbid")));
     }
 }

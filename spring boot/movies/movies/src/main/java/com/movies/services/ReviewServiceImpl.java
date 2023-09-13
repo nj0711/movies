@@ -7,7 +7,10 @@ import com.movies.repository.ReviewDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +23,15 @@ public class ReviewServiceImpl implements ReviewService{
     @Autowired
     private MoviesDao moviesDao;
 
-    public Review addReview(Review reviewBody, String id){
+    public Review addReview(String reviewBody, String id){
         Movies m = this.moviesDao.findByImdbId(id).orElse(null);
-        Review r = this.reviewDao.save(reviewBody);
 
-        List<Review> l = new ArrayList<>();
+        Review r = new Review();
+        r.setBody(reviewBody);
+        r.setDate(new Date());
+        this.reviewDao.save(r);
+
+        List<Review> l = m.getReviewIds();
         l.add(r);
         if(m!= null){
             m.setReviewIds(l);
