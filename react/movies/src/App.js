@@ -8,32 +8,33 @@ import { useState, useEffect } from "react";
 import Header from './component/header/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import Trailer from './component/trailer/Trailer';
 
 function App() {
 
-  const [movies,setMovies]=useState([]);
+  const [movies, setMovies] = useState([]);
 
   const getAllMovies = () => {
     axios.get(`${base_url}/getall`)
-        .then((response) => {
-            setMovies(response.data);
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-}
+      .then((response) => {
+        setMovies(response.data);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
-useEffect(() => {
+  useEffect(() => {
     getAllMovies()
-}, []);
+  }, []);
 
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home movies={movies}/>}>
-          </Route>
+          <Route index element={<Home movies={movies} />} />
+          <Route path="/Trailer/:ytTrailerId" element={<Trailer />} />
         </Route>
       </Routes>
     </div>
