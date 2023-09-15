@@ -5,10 +5,17 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Paper } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from 'bootstrap';
 
 
 function Hero({ movies }) {
+
+  const navigate = useNavigate();
+
+  const reviews = (movieId) => {
+    navigate(`/review/${movieId}`)
+  }
 
   return (
     <div className='movie-carousel-container'>
@@ -16,7 +23,7 @@ function Hero({ movies }) {
         {
           movies.map((movie) => {
             return (
-              <Paper>
+              <Paper key={movie.imdbId}>
                 <div className='movie-card-container'>
                   <div className='movie-card' style={{ "--img": `url(${movie.backdrops[1]})` }}>
                     <div className='movie-detail'>
@@ -28,10 +35,15 @@ function Hero({ movies }) {
                       </div>
                       <div className='movie-buttons-container'>
                         <Link to={`/Trailer/${movie.trailerLink.substring(movie.trailerLink.length - 11)}`}>
-                        <div className='play-button-icon-container'>
-                          <FontAwesomeIcon className='play-button-icon' icon={faCirclePlay} />
-                        </div>
+                          <div className='play-button-icon-container'>
+                            <FontAwesomeIcon className='play-button-icon' icon={faCirclePlay} />
+                          </div>
                         </Link>
+
+                        <div className='movie-review-button-container'>
+                          <button className='btn btn-outline-info' onClick={reviews(movie.movieId)}>Reviews</button>
+                          <button className='btn btn-outline-info'>Reviews</button>
+                        </div>
                       </div>
                     </div>
                   </div>
